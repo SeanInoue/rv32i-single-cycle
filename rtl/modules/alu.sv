@@ -13,21 +13,21 @@ module alu (
 
   always_comb begin
     unique case (alu_control)
-      ALU_ADD:    result = alu_in1 + alu_in2;
-      ALU_SUB:    result = alu_in1 + ~alu_in2 + (XLEN)'b1;
-      ALU_AND:    result = alu_in1 & alu_in2;
-      ALU_OR:     result = alu_in1 | alu_in2;
-      ALU_XOR:    result = alu_in1 ^ alu_in2;
-      ALU_SLT:    result = XLEN'($signed(alu_in1) < $signed(alu_in2));
-      ALU_SLTU:   result = XLEN'(alu_in1 < alu_in2);
-      ALU_SLL:    result = alu_in1 << alu_in2[SHIFT_BITS-1:0];
-      ALU_SRL:    result = alu_in1 >> alu_in2[SHIFT_BITS-1:0];
-      ALU_SRA:    result = $signed(alu_in1) >>> alu_in2[SHIFT_BITS-1:0];
-      ALU_PASS_B: result = alu_in2;
-      default:    result = '0;
+      ALU_ADD:    alu_out = alu_in1 + alu_in2;
+      ALU_SUB:    alu_out = alu_in1 + ~alu_in2 + (XLEN)'b1;
+      ALU_AND:    alu_out = alu_in1 & alu_in2;
+      ALU_OR:     alu_out = alu_in1 | alu_in2;
+      ALU_XOR:    alu_out = alu_in1 ^ alu_in2;
+      ALU_SLT:    alu_out = XLEN'($signed(alu_in1) < $signed(alu_in2));
+      ALU_SLTU:   alu_out = XLEN'(alu_in1 < alu_in2);
+      ALU_SLL:    alu_out = alu_in1 << alu_in2[SHIFT_BITS-1:0];
+      ALU_SRL:    alu_out = alu_in1 >> alu_in2[SHIFT_BITS-1:0];
+      ALU_SRA:    alu_out = $signed(alu_in1) >>> alu_in2[SHIFT_BITS-1:0];
+      ALU_PASS_B: alu_out = alu_in2;
+      default:    alu_out = '0;
     endcase
   end
 
-  assign zero = (result == '0);
+  assign zero = (alu_out == '0);
 
 endmodule
